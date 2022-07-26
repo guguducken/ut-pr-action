@@ -2,9 +2,8 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { graphql } = require("@octokit/graphql");
 
-// const accessToken = process.env['GITHUB_TOKEN'];
-const accessToken = core.getInput('github-token');
-// const accessToken = process.env['GITHUB_TOKEN'];
+// const accessToken = core.getInput('github-token');
+const accessToken = process.env['GITHUB_TOKEN'];
 
 
 async function run() {

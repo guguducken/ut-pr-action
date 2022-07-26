@@ -2,13 +2,10 @@ name: UT Coverage for New PR
 description: UT Coverage for New PR
 author: guguducken
 
-inputs:
-  github-token:
-    description: 'The user GitHub token for get data'
-    required: true
-
-env:
-  
+# inputs:
+#   github-token:
+#     description: 'The user GitHub token for get data'
+#     required: true
 
 runs:
   using: 'node16'
