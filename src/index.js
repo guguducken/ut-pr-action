@@ -21,7 +21,7 @@ async function run() {
         //获取PR的paths
         const graphqlWithAuth = graphql.defaults({
             headers: {
-                authorization: accessToken,
+                authorization: `token ` + accessToken,
             },
         });
         const { pr_paths } = await graphqlWithAuth(`
