@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const { graphql } = require("@octokit/graphql");
 
 // const accessToken = process.env['GITHUB_TOKEN'];
-const accessToken = core.getInput('github-token', { required: true });
+const accessToken = core.getInput('github-token');
 // const accessToken = process.env['GITHUB_TOKEN'];
 
 
