@@ -11,11 +11,13 @@ async function run() {
     try {
 
         const context = github.context;
-        const pr = context.payload.pull_request;
-        const num = pr.number       //获取PR的序号
-        core.info(JSON.stringify(num));
+        const num = context.payload?.pull_request?.number; //获取PR的序号
         core.info(JSON.stringify(accessToken));
 
+        if (num == undefined) {
+            return
+        }
+        core.info(JSON.stringify(num));
         //获取PR的paths
         const graphqlWithAuth = graphql.defaults({
             headers: {
