@@ -3,7 +3,6 @@ const github = require('@actions/github');
 const { graphql } = require("@octokit/graphql");
 
 const accessToken = core.getInput('github-token');
-// const accessToken = process.env['GITHUB_TOKEN'];
 
 
 async function run() {
@@ -11,7 +10,7 @@ async function run() {
 
         core.info("--------------------Start find paths--------------------");
         const context = github.context;
-        const num = context.payload?.pull_request?.number; //获取PR的序号
+        const num = context.payload?.pull_request?.number;
         const owner = context.repo.owner;
         const repo = context.repo.repo;
         core.info(`The repository name is: ` + repo);
@@ -25,7 +24,7 @@ async function run() {
         core.info(`The target pull request id is: ` + num);
         core.info("-------------------- The goal paths --------------------");
 
-        //获取PR的paths
+
         const graphqlWithAuth = graphql.defaults({
             headers: {
                 authorization: `bearer ` + accessToken,
@@ -55,7 +54,6 @@ async function run() {
             });
         const str = JSON.stringify(pr_paths)
 
-        //使用正则表达式提取paths
         const re = /\{"path":"(.+?)"\}\}/igm;
         let path_re = [];
         let res = re.exec(str);
@@ -81,6 +79,8 @@ async function run() {
         if (path_ans == ``) {
             path_ans = `github.com` + `/` + owner + `/` + repo + `/` + `\r`;
         }
+
+
         core.info(path_ans);
         core.info("-------------------- End find paths --------------------");
         return path_ans

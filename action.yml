@@ -8,6 +8,10 @@ inputs:
     required: true
     default: ${{ github.token }}
 
+outputs:
+  paths:
+    description: 'The paths of this PR changed'
+
 runs:
   using: 'node16'
   main: 'src/index.js'
