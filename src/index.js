@@ -83,7 +83,7 @@ async function run() {
 
         core.info(path_ans);
         core.info("-------------------- End find paths --------------------");
-        return path_ans
+        core.setOutput('paths', path_ans);
     } catch (err) {
         core.setFailed(err.message);
     }
