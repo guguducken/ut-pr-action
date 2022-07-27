@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const { graphql } = require("@octokit/graphql");
 
 // const accessToken = core.getInput('github-token');
-const accessToken = process.env['GITHUB_TOKEN'];
+// const accessToken = process.env['GITHUB_TOKEN'];
 
 
 async function run() {
@@ -24,7 +24,7 @@ async function run() {
         //获取PR的paths
         const graphqlWithAuth = graphql.defaults({
             headers: {
-                authorization: `bearer ` + accessToken,
+                authorization: `bearer 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`,
             },
         });
         const { pr_paths } = await graphqlWithAuth(`
