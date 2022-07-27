@@ -23,7 +23,7 @@ async function run() {
             return
         }
         core.info(`The target pull request id is: ` + num);
-        core.info("--------------------------------------------------------");
+        core.info("-------------------- The goal paths --------------------");
 
         //获取PR的paths
         const graphqlWithAuth = graphql.defaults({
@@ -78,11 +78,11 @@ async function run() {
                 path_ans += `github.com` + `/` + owner + `/` + repo + `/` + element.substring(0, i) + `\r`;
             }
         }
+        if (path_ans == ``) {
+            path_ans = `github.com` + `/` + owner + `/` + repo + `/` + `\r`;
+        }
         core.info(path_ans);
         core.info("-------------------- End find paths --------------------");
-        if (path_ans == ``) {
-            return `github.com` + `/` + owner + `/` + repo + `/` + `\r`;
-        }
         return path_ans
     } catch (err) {
         core.setFailed(err.message);
