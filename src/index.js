@@ -56,7 +56,7 @@ async function run() {
         const t = JSON.stringify(pr_paths)
 
         //使用正则表达式提取paths
-        const re = /"path":"(.+)"/igm;
+        const re = /{"path":"(.+)"}}/igm;
         var ans = t.match(re)
         if (ans == null) {
             core.info("No files changed")
