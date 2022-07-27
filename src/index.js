@@ -31,7 +31,7 @@ async function run() {
                 authorization: `bearer ` + accessToken,
             },
         });
-        const pr_paths = await graphqlWithAuth(
+        var pr_paths = await graphqlWithAuth(
             `
             query prPaths($owner_name: String!, $repo_name: String!,$id_pr: Int!, $lnum: Int = 100){
                 repository(name: $repo_name, owner: $owner_name) {
@@ -53,10 +53,11 @@ async function run() {
                 id_pr: num,
 
             });
+        pr_paths = String(pr_paths);
 
         //使用正则表达式提取paths
         const re = /"path":"(.+)"/igm;
-        var ans = re.match(pr_paths)
+        var ans = pr_paths.match()
         if (ans == null) {
             core.info("No files changed")
         }
