@@ -61,7 +61,7 @@ async function run() {
         if (ans == null) {
             core.info("No files changed")
         }
-        core.info(ans);
+        core.info(ans.input);
         core.info("---------------------------------------------------------");
     } catch (err) {
         core.setFailed(err.message);
