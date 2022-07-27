@@ -14,7 +14,6 @@ async function run() {
         const num = context.payload?.pull_request?.number; //获取PR的序号
         const owner = context.repo.owner;
         const repo = context.repo.repo;
-        core.info("--------------------------------------------------------");
         core.info(`The repository name is: ` + repo);
         core.info(`The owner of this repository is: ` + owner);
 
@@ -76,11 +75,15 @@ async function run() {
                 }
             }
             if (i != -1) {
-                path_ans += repo + `/` + element.substring(0, i + 1) + `\r`;
+                path_ans += `github.com` + `/` + owner + `/` + repo + `/` + element.substring(0, i) + `\r`;
             }
         }
         core.info(path_ans);
         core.info("-------------------- End find paths --------------------");
+        if (path_ans == ``) {
+            return `github.com` + `/` + owner + `/` + repo + `/` + `\r`;
+        }
+        return path_ans
     } catch (err) {
         core.setFailed(err.message);
     }
