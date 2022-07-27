@@ -16,6 +16,9 @@ async function run() {
         core.info(JSON.stringify(owner));
         core.info(JSON.stringify(repo));
 
+        const pr = github.context.payload.pull_request.body
+        core.info(JSON.stringify(pr));
+
         if (num == undefined) {
             core.info(`This is no workflow with PR create`)
             return
