@@ -24,6 +24,7 @@ async function run() {
         }
         core.info(`The target pull request id is: ` + num);
         core.info("---------------------------------------------------------");
+
         //获取PR的paths
         const graphqlWithAuth = graphql.defaults({
             headers: {
@@ -52,8 +53,15 @@ async function run() {
                 id_pr: num,
 
             });
+
+        //使用正则表达式提取paths
+        const re = /"path":"(.+)"/igm;
+        var ans = pr_paths.match(re)
+        if (ans == null) {
+            core.info("No files changed")
+        }
         core.info("---------------------------------------------------------");
-        core.info(JSON.stringify(pr_paths));
+        core.info(ans);
         core.info("---------------------------------------------------------");
     } catch (err) {
         core.setFailed(err.message);
