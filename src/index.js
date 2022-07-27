@@ -9,21 +9,22 @@ const accessToken = core.getInput('github-token');
 async function run() {
     try {
 
+        core.info("--------------------Start find paths--------------------");
         const context = github.context;
         const num = context.payload?.pull_request?.number; //获取PR的序号
         const owner = context.repo.owner;
         const repo = context.repo.repo;
-        core.info("---------------------------------------------------------");
+        core.info("--------------------------------------------------------");
         core.info(`The repository name is: ` + repo);
         core.info(`The owner of this repository is: ` + owner);
 
         if (num == undefined) {
             core.info(`This is no workflow with PR create`)
-            core.info("---------------------------------------------------------");
+            core.info("-------------------- End find paths --------------------");
             return
         }
         core.info(`The target pull request id is: ` + num);
-        core.info("---------------------------------------------------------");
+        core.info("--------------------------------------------------------");
 
         //获取PR的paths
         const graphqlWithAuth = graphql.defaults({
@@ -57,17 +58,29 @@ async function run() {
 
         //使用正则表达式提取paths
         const re = /\{"path":"(.+?)"\}\}/igm;
-        let path_ans = [];
+        let path_re = [];
         let res = re.exec(str);
         while (res) {
             let [big, small] = res;
-            path_ans.push(small);
+            path_re.push(small);
             res = re.exec(str);
         }
 
+        var path_ans = ``;
+        for (let index = 0; index < path_re.length; index++) {
+            let element = path_re[index];
+            let i = element.length - 1
+            for (; i >= 0; i--) {
+                if (element[i] == '/') {
+                    break
+                }
+            }
+            if (i != -1) {
+                path_ans += repo + `/` + element.substring(0, i + 1) + `\r`;
+            }
+        }
         core.info(path_ans);
-
-        core.info("---------------------------------------------------------");
+        core.info("-------------------- End find paths --------------------");
     } catch (err) {
         core.setFailed(err.message);
     }
