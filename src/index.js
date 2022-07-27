@@ -30,7 +30,7 @@ async function run() {
                 authorization: `bearer ` + accessToken,
             },
         });
-        let pr_paths = await graphqlWithAuth(
+        const pr_paths = await graphqlWithAuth(
             `
             {
                 repository(name: "matrixone", owner: "matrixorigin") {
