@@ -32,10 +32,10 @@ async function run() {
         });
         const pr_paths = await graphqlWithAuth(
             `
-            {
+            query prPaths($name: String!, $repo_name: String!,$id_pr: Int!, $lnum: Int = 1000){
                 repository(name: $name, owner: $repo_owner) {
                     pullRequest(number: $id_pr) {
-                        files(first: 100) {
+                        files(first: $lnum) {
                             edges {
                                 node {
                                     path
@@ -45,12 +45,13 @@ async function run() {
                     }
                 }
             }
-        `, {
-            name: repo,
-            repo_owner: owner,
-            id_pr: num,
+        `,
+            {
+                name: repo,
+                repo_owner: owner,
+                id_pr: num,
 
-        });
+            });
         core.info("---------------------------------------------------------");
         core.info(JSON.stringify(pr_paths));
         core.info("---------------------------------------------------------");
