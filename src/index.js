@@ -24,7 +24,7 @@ async function run() {
         //获取PR的paths
         const graphqlWithAuth = graphql.defaults({
             headers: {
-                authorization: `bearer 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`,
+                authorization: `bearer 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`,
             },
         });
         const { pr_paths } = await graphqlWithAuth(`
