@@ -53,7 +53,7 @@ async function run() {
                 id_pr: num,
 
             });
-        pr_paths = String(pr_paths);
+        pr_paths = JSON.stringify(pr_paths)
 
         //使用正则表达式提取paths
         const re = /"path":"(.+)"/igm;
@@ -61,7 +61,6 @@ async function run() {
         if (ans == null) {
             core.info("No files changed")
         }
-        core.info("---------------------------------------------------------");
         core.info(ans);
         core.info("---------------------------------------------------------");
     } catch (err) {
