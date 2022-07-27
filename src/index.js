@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { graphql } = require("@octokit/graphql");
 
-const accessToken = core.getInput('github-token');
+// const accessToken = core.getInput('github-token');
 // const accessToken = process.env['GITHUB_TOKEN'];
 
 
@@ -11,9 +11,13 @@ async function run() {
 
         const context = github.context;
         const num = context.payload?.pull_request?.number; //获取PR的序号
-        core.info(JSON.stringify(accessToken));
+        const owner = context.repo.owner;
+        const repo = context.repo.repo;
+        core.info(JSON.stringify(owner));
+        core.info(JSON.stringify(repo));
 
         if (num == undefined) {
+            core.info(`This is no workflow with PR create`)
             return
         }
         core.info(JSON.stringify(num));
