@@ -56,7 +56,7 @@ async function run() {
         const str = JSON.stringify(pr_paths)
 
         //使用正则表达式提取paths
-        const re = /{"path":"(.+)"}}/igm;
+        const re = /\{"path":"(.+)"\}\}/igm;
         let path_ans = [];
         let res = re.exec(str);
         while (res) {
